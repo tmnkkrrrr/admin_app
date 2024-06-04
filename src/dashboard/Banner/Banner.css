@@ -1,0 +1,45 @@
+.TitleBox {
+  display: flex;
+  align-items: center;
+  padding-bottom: 20px; /* Adjust as needed */
+}
+
+.TitleImage {
+  width: 100px; /* Adjust as needed */
+  height: auto;
+  margin-right: 20px; /* Adjust as needed */
+}
+
+.BannerAdminContainer {
+  display: flex;
+}
+
+.BannerAdminContent {
+  flex-grow: 1;
+  padding: 20px;
+}
+
+.BannerGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.BannerItem {
+  position: relative;
+  width: 100%;
+  padding-top: 50%;
+  overflow: hidden;
+  background: #f0f0f0;
+  border: 1px solid #ccc;
+}
+
+.BannerItem input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  cursor: pointer;
+}

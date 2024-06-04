@@ -2,28 +2,6 @@
   display: flex;
 }
 
-.Sidebar {
-  width: 200px;
-  height: 90vh;
-  background-color: #f4f4f4;
-  padding: 15px;
-}
-
-.Sidebar h2 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.Sidebar ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.Sidebar li {
-  margin: 10px 0;
-  cursor: pointer;
-}
-
 .Dashboard {
   flex-grow: 1;
   padding: 15px;
