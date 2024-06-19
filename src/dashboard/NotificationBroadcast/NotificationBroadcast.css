@@ -1,57 +1,23 @@
+.TitleTextBox {
+  width: 100%;
+  padding: 10px;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.BodyTextBox {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+  font-size: 16px;
+  resize: none;
+}
+
 .ReferAndEarnContainer {
   display: flex;
-  font-family: Arial, sans-serif;
 }
 
 .ReferAndEarnContent {
   flex-grow: 1;
   padding: 20px;
-}
-
-.ReferAndEarnContent h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.ReferAndEarnContent p {
-  font-size: 16px;
-}
-
-.ReferralSection, .ReferralSteps, .RewardsSection {
-  margin-top: 20px;
-}
-
-.ReferralLink {
-  display: flex;
-  align-items: center;
-}
-
-.ReferralLink input {
-  width: 300px;
-  padding: 5px;
-  margin-right: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.ReferralLink button {
-  padding: 5px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.ReferralLink button:hover {
-  background-color: #0056b3;
-}
-
-.ReferralSteps ol {
-  padding-left: 20px;
-}
-
-.RewardsSection p {
-  font-size: 16px;
-  font-weight: bold;
 }

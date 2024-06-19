@@ -22,6 +22,18 @@ const Sidebar = () => {
         </li>
         <li>
           <i className="fas fa-award"></i>
+          <Link to="/dashboard/discount_broker">Discount Brokers</Link>
+        </li>
+        <li>
+          <i className="fas fa-award"></i>
+          <Link to="/dashboard/fullservice_broker">Full Service Brokers</Link>
+        </li>
+        {/* <li>
+          <i className="fas fa-award"></i>
+          <Link to="/dashboard/unlisted_shares">Unlisted Shares</Link>
+        </li> */}
+        <li>
+          <i className="fas fa-award"></i>
           <Link to="/dashboard/refer_earn">Refer & Earn Logs</Link>
         </li>
         <li>
