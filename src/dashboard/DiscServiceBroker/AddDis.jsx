@@ -7,9 +7,6 @@ const AddFull = ({ onClose }) => {
     title: "",
     logo: null,
     body: "",
-    chargeTab: "",
-    marginTab: "",
-    margin: "",
     bgImg: null,
     dematURL: "",
   };
@@ -78,33 +75,6 @@ const AddFull = ({ onClose }) => {
             <textarea
               name="body"
               value={newField.body}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Charge Tab:
-            <input
-              type="text"
-              name="chargeTab"
-              value={newField.chargeTab}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Margin Tab:
-            <input
-              type="text"
-              name="marginTab"
-              value={newField.marginTab}
-              onChange={handleChange}
-            />
-          </label>
-          <label>
-            Margin:
-            <input
-              type="text"
-              name="margin"
-              value={newField.margin}
               onChange={handleChange}
             />
           </label>

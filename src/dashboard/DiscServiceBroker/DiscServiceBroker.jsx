@@ -27,6 +27,16 @@ const DiscServiceBroker = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
+      for(let i=0; i<data.length; i++){
+        data[i].brokerId = data[i].id;
+        console.log(data);
+      }
+      console.log(data);
+      // const broker = data.map(b =>
+      //   console.log(b)
+      //    b.brokerId == b.id
+      //   );
+      // console.log(broker);
       setBanners([...data]);
     } catch (error) {
       console.error("Error fetching banners:", error);
@@ -42,7 +52,7 @@ const DiscServiceBroker = () => {
     setBanners(newBanners);
   };
 
-  const saveImg = async (i) => {
+  const chnageIndex = async (i) => {
     try {
       const formData = new FormData();
       formData.append("banner_no", i + 1);
@@ -51,7 +61,7 @@ const DiscServiceBroker = () => {
       formData.append("image", brokers[i].im);
       console.log(brokers[i]);
 
-      const response = await fetch(`${host}/api/v1/visitor/update_banner`, {
+      const response = await fetch(`${host}/api/v1/visitor/update_index`, {
         method: "POST",
         body: formData,
       });
@@ -112,7 +122,7 @@ const DiscServiceBroker = () => {
         )}
         {isEditPopupVisible && (
           <EditDis
-            initialData={brokers[editIndex]}
+            brokerId={brokers[editIndex].brokerId}
             onClose={(v) => {
               if (v == true) {
                 getBrokers();
@@ -165,7 +175,7 @@ const DiscServiceBroker = () => {
               />
               <br />
               <br />
-              <button onClick={() => saveImg(index)}>Change Index</button>
+              <button onClick={() => chnageIndex(index)}>Change Index</button>
               <button
                 style={{ backgroundColor: "teal" }}
                 onClick={() => {

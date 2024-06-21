@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const TableMaker = ({ heading, columnNames, onTableDataChange }) => {
-  const [rows, setRows] = useState([Array(columnNames.length).fill("")]);
+const TableMaker = ({ heading, columnNames, onTableDataChange, initialData = [] }) => {
+  const [rows, setRows] = useState(initialData.length > 0 ? initialData : []);
+
+  useEffect(() => {
+    if (initialData.length > 0) {
+      setRows(initialData);
+    }
+  }, [initialData, heading]);
 
   useEffect(() => {
     onTableDataChange(rows);
@@ -14,9 +20,13 @@ const TableMaker = ({ heading, columnNames, onTableDataChange }) => {
   };
 
   const handleAddRow = () => {
-    setRows([...rows, Array(columnNames.length).fill("")]);
+    const newRow = columnNames.reduce((acc, colName) => {
+      acc[colName.toLowerCase()] = "";
+      return acc;
+    }, {});
+    console.log(newRow);
+    setRows([...rows, newRow]);
   };
-
   const handleRemoveRow = (rowIndex) => {
     const updatedRows = rows.filter((_, index) => index !== rowIndex);
     setRows(updatedRows);
@@ -37,19 +47,17 @@ const TableMaker = ({ heading, columnNames, onTableDataChange }) => {
         <tbody>
           {rows.map((row, rowIndex) => (
             <tr key={rowIndex}>
-              {row.map((cell, colIndex) => (
+             {columnNames.map((colName, colIndex) => (
                 <td key={colIndex}>
                   <input
                     type="text"
-                    value={cell}
-                    onChange={(e) => handleChange(e, rowIndex, colIndex)}
+                    value={row[colName.toLowerCase()]}
+                    onChange={(e) => handleChange(e, rowIndex, colName.toLowerCase())}
                   />
                 </td>
               ))}
               <td>
-                <button onClick={() => handleRemoveRow(rowIndex)}>
-                  Remove
-                </button>
+                <button onClick={() => { handleRemoveRow(rowIndex)}}>Remove</button>
               </td>
             </tr>
           ))}
