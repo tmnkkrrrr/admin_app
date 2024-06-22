@@ -27,19 +27,12 @@ const DiscServiceBroker = () => {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       const data = await response.json();
-      for(let i=0; i<data.length; i++){
+      for (let i = 0; i < data.length; i++) {
         data[i].brokerId = data[i].id;
-        console.log(data);
       }
-      console.log(data);
-      // const broker = data.map(b =>
-      //   console.log(b)
-      //    b.brokerId == b.id
-      //   );
-      // console.log(broker);
       setBanners([...data]);
     } catch (error) {
-      console.error("Error fetching banners:", error);
+      console.error("Error fetching Brokers:", error);
     }
   }
 
@@ -47,31 +40,27 @@ const DiscServiceBroker = () => {
     const newBanners = [...brokers];
     newBanners[index] = {
       ...brokers[index],
-      index: e.target.value,
+      ind: e.target.value,
     };
     setBanners(newBanners);
   };
 
-  const chnageIndex = async (i) => {
+  const chnageIndex = async (i, j) => {
     try {
-      const formData = new FormData();
-      formData.append("banner_no", i + 1);
-      formData.append("title", brokers[i].title);
-      formData.append("url", brokers[i].url);
-      formData.append("image", brokers[i].im);
-      console.log(brokers[i]);
-
-      const response = await fetch(`${host}/api/v1/visitor/update_index`, {
-        method: "POST",
-        body: formData,
-      });
+      const response = await fetch(
+        `${host}/api/v1/visitor/update_index/${i}/${j}`,
+        {
+          method: "POST",
+          body: {},
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
 
       if (response.status === 200) {
-        alert("Banner updated successfully!");
+        alert("Broker Index updated successfully!");
         window.location.reload();
       }
     } catch (err) {
@@ -92,7 +81,7 @@ const DiscServiceBroker = () => {
       }
 
       if (response.status === 200) {
-        alert("Banner updated successfully!");
+        alert("Broker Deleted successfully!");
         window.location.reload();
       }
     } catch (err) {
@@ -161,21 +150,24 @@ const DiscServiceBroker = () => {
               {broker.title ?? ""}
               <br />
               <strong>body : </strong>
-              {broker.body ?? ""}
+              <span className="line-clamp-2">{broker.body ?? ""}</span>
+              {/* {broker.body ?? ""} */}
               <br />
               <strong>URL : </strong>
-              {broker.url ?? ""}
+              {broker.dematURL ?? ""}
               <br />
               <strong>index : </strong>
               <input
                 type="number"
-                value={broker.index ?? ""}
+                value={broker.ind ?? ""}
                 onChange={(e) => handleIndexChange(e, index)}
                 className="txtInput"
               />
               <br />
               <br />
-              <button onClick={() => chnageIndex(index)}>Change Index</button>
+              <button onClick={() => chnageIndex(broker.brokerId, broker.ind)}>
+                Change Index
+              </button>
               <button
                 style={{ backgroundColor: "teal" }}
                 onClick={() => {

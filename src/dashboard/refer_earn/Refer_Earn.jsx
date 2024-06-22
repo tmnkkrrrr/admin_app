@@ -1,28 +1,74 @@
-import React from 'react';
-import './Refer_Earn.css';
-import Sidebar from '../Sidebar/Sidebar';
+import React, { useEffect, useState } from "react";
+import Sidebar from "../Sidebar/Sidebar";
+import "./Refer_Earn.css";
+import host from "../../AppConfig";
 
 const Refer_Earn = () => {
+  const [notifications, Notifications] = useState([]);
+
+  const fetchRefers = async () => {
+    try {
+      const response = await fetch(`${host}/api/v1/visitor/refers`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        alert("Failed to Get Sent Notifications List");
+        return;
+      }
+      const data = await response.json();
+      console.log(data);
+      Notifications(data);
+    } catch (err) {
+      // setError(err.message);
+    } finally {
+      // setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchRefers();
+  }, []);
 
   return (
     <div className="ReferAndEarnContainer">
-     <Sidebar />
+      <Sidebar />
       <div className="ReferAndEarnContent">
-        <h1>Refer & Earn</h1>
-        <p>Invite your friends and earn rewards!</p>
+      <h1>Refer & Earn Info</h1>
+      <div class="form-group">
+      <label for="referCode">Monthly Refer Limit:</label>
+      <input type="text" id="referCode" name="referCode" placeholder="Enter Monthly Limit" />
+    </div>
+    <div class="form-group">
+      <label for="earnAmount">Refer Amount:</label>
+      <input type="text" id="earnAmount" name="earnAmount" placeholder="Enter Refer Amount" />
+    </div>
+    <div class="button-group">
+      <button class="save-button">Save</button>
+      <button class="cancel-button">Cancel</button>
+    </div>
 
-        <div className="ReferralSteps">
-          <h2>How It Works</h2>
-          <ol>
-            <li>Share your referral link with your friends.</li>
-            <li>They sign up using your link.</li>
-            <li>You earn rewards when they make their first purchase.</li>
-          </ol>
-        </div>
-        <div className="RewardsSection">
-          <h2>Rewards</h2>
-          <p>Earn $10 for every friend who signs up and makes a purchase.</p>
-        </div>
+    <br /><br />
+
+        <table className="NotificationTable">
+          <thead>
+            <tr>
+              <th>From Refer</th>
+              <th>To Refer</th>
+              <th>Amount Spent</th>
+            </tr>
+          </thead>
+          <tbody>
+            {notifications.map((notification) => (
+              <tr key={notification.notificationId}>
+                <td>{notification.fromClient}</td>
+                <td>{notification.toClient}</td>
+                <td>{notification.amount}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

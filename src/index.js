@@ -9,7 +9,6 @@ import Refer_Earn from './dashboard/refer_earn/Refer_Earn';
 import NotificationBroadcast from './dashboard/NotificationBroadcast/NotificationBroadcast';
 import Banner from './dashboard/Banner/Banner';
 import FullServiceBroker from './dashboard/FullServiceBroker/FullServiceBroker';
-// import UnlistedShares from './dashboard/UnlistedShares/UnlistedShares';
 import DiscServiceBroker from './dashboard/DiscServiceBroker/DiscServiceBroker';
 import './index.css';
 
@@ -24,7 +23,6 @@ root.render(
         <Route path="/dashboard/banner" element={<VisitorRoute Component={Banner} />} />
         <Route path="/dashboard/discount_broker" element={<VisitorRoute Component={DiscServiceBroker} />} />
         <Route path="/dashboard/fullservice_broker" element={<VisitorRoute Component={FullServiceBroker} />} />
-        {/* <Route path="/dashboard/unlisted_shares" element={<VisitorRoute Component={UnlistedShares} />} /> */}
         <Route path="/dashboard/refer_earn" element={<VisitorRoute Component={Refer_Earn} />} />
         <Route path="/dashboard/notifications"element={<VisitorRoute Component={NotificationBroadcast} />} />
       </Routes>

@@ -84,20 +84,16 @@ const NotificationBroadcast = () => {
         <table className="NotificationTable">
           <thead>
             <tr>
-              <th>ID</th>
               <th>Title</th>
               <th>Body</th>
-              <th>Success</th>
               <th>Shooted At</th>
             </tr>
           </thead>
           <tbody>
             {notifications.map(notification => (
               <tr key={notification.notificationId}>
-                <td>{notification.notificationId}</td>
                 <td>{notification.title}</td>
                 <td>{notification.body}</td>
-                <td>{notification.isSucceed ? "Yes" : "No"}</td>
                 <td>{formatDate(notification.createdAt)}</td>
               </tr>
             ))}
