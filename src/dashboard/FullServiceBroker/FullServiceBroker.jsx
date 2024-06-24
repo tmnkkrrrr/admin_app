@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar.jsx";
 import host from "../../AppConfig.js";
-import AddDis from "./AddDis.jsx";
+import AddDis from "./AddFull.jsx";
 import EditDis from "./EditDis.jsx";
 import "./FullServiceBroker.css";
 
@@ -17,7 +17,7 @@ const FullServiceBroker = () => {
 
   async function getBrokers() {
     try {
-      const response = await fetch(`${host}/api/v1/visitor/disBroker_list`, {
+      const response = await fetch(`${host}/api/v1/visitor/fullBroker_list`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

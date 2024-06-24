@@ -59,6 +59,24 @@ const NotificationBroadcast = () => {
   useEffect(() => {
     fetchNotifications();
   }, []);
+
+  const deleteNotification = async (v) => {
+    try {
+      const response = await fetch(`${host}/api/v1/visitor/delete_notification/${v}`, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        alert("Failed to Delete Entry");
+        return;
+      }
+      alert("Notification Deleted Success")
+    fetchNotifications()
+    } catch (err) {
+      alert(err);
+    }
+  };
   return (
     <div className="ReferAndEarnContainer">
       <Sidebar />
@@ -87,6 +105,7 @@ const NotificationBroadcast = () => {
               <th>Title</th>
               <th>Body</th>
               <th>Shooted At</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
@@ -95,6 +114,7 @@ const NotificationBroadcast = () => {
                 <td>{notification.title}</td>
                 <td>{notification.body}</td>
                 <td>{formatDate(notification.createdAt)}</td>
+                <td><button onClick={()=>deleteNotification(notification.notificationId)}>Delete</button></td>
               </tr>
             ))}
           </tbody>

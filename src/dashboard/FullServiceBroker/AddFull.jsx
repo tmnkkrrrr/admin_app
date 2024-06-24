@@ -37,7 +37,7 @@ const AddFull = ({ onClose }) => {
     });
 
     try {
-      const response = await fetch(`${host}/api/v1/visitor/disBroker`, {
+      const response = await fetch(`${host}/api/v1/visitor/fullBroker`, {
         method: "POST",
         body: formData,
       });
