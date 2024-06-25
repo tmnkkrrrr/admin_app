@@ -7,31 +7,41 @@ import host from "../../AppConfig";
 const NotificationBroadcast = () => {
   const [title, Title] = useState("");
   const [body, Body] = useState("");
-  const [isLoading , IsLoading] = useState(false);
+  const [url, setURL] = useState("");
+  const [isLoading, IsLoading] = useState(false);
   const [notifications, Notifications] = useState([]);
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const broadcastNotification = async () => {
+    if (!title || !body) {
+      alert('Please fill out all fields and select an image.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('body', body);
+    formData.append('image', imageFile);
+
     try {
-      IsLoading(true);
       const response = await fetch(`${host}/api/v1/visitor/send-noti`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ title, body }),
+        method: 'POST',
+        body: formData,
       });
-      IsLoading(false);
 
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       if (response.status === 200) {
-        alert("Notification broadcasted successfully!");
-        Title("");
-        Body("");
+        alert('Notification broadcasted successfully!');
+        Title('');
+        Body('');
+        setImageFile(null);
+        setImagePreview(null);
         fetchNotifications();
       }
     } catch (err) {
-      console.error("Error:", err);
+      console.error('Error:', err);
     }
   };
 
@@ -62,19 +72,34 @@ const NotificationBroadcast = () => {
 
   const deleteNotification = async (v) => {
     try {
-      const response = await fetch(`${host}/api/v1/visitor/delete_notification/${v}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        `${host}/api/v1/visitor/delete_notification/${v}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (!response.ok) {
         alert("Failed to Delete Entry");
         return;
       }
-      alert("Notification Deleted Success")
-    fetchNotifications()
+      alert("Notification Deleted Success");
+      fetchNotifications();
     } catch (err) {
       alert(err);
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setImageFile(file);
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setImagePreview(e.target.result);
+      };
+      reader.readAsDataURL(file);
     }
   };
   return (
@@ -94,10 +119,30 @@ const NotificationBroadcast = () => {
           onChange={(e) => Body(e.target.value)}
           placeholder="Write your Notification ody here"
         />
-       { isLoading?
-        'Loading...':
-        <button onClick={broadcastNotification}>Brodcast Notification</button>}
-        <br /><br />
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {imagePreview && (
+          <div style={{ marginTop: "10px" }}>
+            <img
+              src={imagePreview}
+              alt="Preview"
+              style={{ maxWidth: "100%", height: "auto" }}
+            />
+          </div>
+        )}
+         <input
+          type="text"
+          value={url}
+          onChange={(e) => setURL(e.target.value)}
+          className="TitleTextBox"
+          placeholder="Please Enter URL..."
+        />
+        {isLoading ? (
+          "Loading..."
+        ) : (
+          <button onClick={broadcastNotification}>Brodcast Notification</button>
+        )}
+        <br />
+        <br />
 
         <table className="NotificationTable">
           <thead>
@@ -109,12 +154,20 @@ const NotificationBroadcast = () => {
             </tr>
           </thead>
           <tbody>
-            {notifications.map(notification => (
+            {notifications.map((notification) => (
               <tr key={notification.notificationId}>
                 <td>{notification.title}</td>
                 <td>{notification.body}</td>
                 <td>{formatDate(notification.createdAt)}</td>
-                <td><button onClick={()=>deleteNotification(notification.notificationId)}>Delete</button></td>
+                <td>
+                  <button
+                    onClick={() =>
+                      deleteNotification(notification.notificationId)
+                    }
+                  >
+                    Delete
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>
