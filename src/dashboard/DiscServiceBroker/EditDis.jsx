@@ -101,13 +101,13 @@ const EditDis = ({ onClose, brokerId }) => {
         body: formDataToSend,
       });
 
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
       
       if(response.status === 200){
         alert("Broker Updated Successfully")
         onClose();
+      }
+      if(response.status === 400){
+        alert("Some Fields are Empty, Please Check!!")
       }
     } catch (error) {
       console.error("Error:", error);

@@ -8,8 +8,8 @@ const Banner = () => {
     Array(10).fill({
       img: null,
       im: null,
-      title: "ile",
-      url: "url",
+      title: "",
+      URL: "",
       path: null,
     })
   );
@@ -64,7 +64,7 @@ const Banner = () => {
     const newBanners = [...banners];
     newBanners[index] = {
       ...banners[index],
-      url: e.target.value,
+      URL: e.target.value,
     };
     setBanners(newBanners);
   };
@@ -74,7 +74,7 @@ const Banner = () => {
       const formData = new FormData();
       formData.append("banner_no", i + 1);
       formData.append("title", banners[i].title);
-      formData.append("url", banners[i].url);
+      formData.append("URL", banners[i].URL);
       formData.append("image", banners[i].im);
       console.log(banners[i]);
 
@@ -141,7 +141,7 @@ const Banner = () => {
               <strong>URL:</strong>
               <input
                 type="text"
-                value={banner.url ?? ""}
+                value={banner.URL ?? ""}
                 onChange={(e) => handleURLChange(e, index)}
                 className="txtInput"
               />

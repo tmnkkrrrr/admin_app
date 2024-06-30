@@ -121,6 +121,7 @@ const Refer_Earn = () => {
             name="monthlyLimit"
             placeholder="Enter Monthly Limit"
           />
+          <b>Your Monthly Refer Limit is {config.monthlyLimit} </b>
         </div>
         <div class="form-group">
           <label for="earnAmount">Refer Amount:</label>
@@ -132,6 +133,7 @@ const Refer_Earn = () => {
             onChange={handleInputChange}
             placeholder="Enter Refer Amount"
           />
+            <b>Your Monthly Refer Amount is {config.amount} </b>
         </div>
         <div class="button-group">
           <button onClick={handleSubmit} class="save-button">

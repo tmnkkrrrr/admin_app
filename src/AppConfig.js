@@ -1,4 +1,4 @@
-const host = 'https://lucknowlions.techharmony.co.in';
+const host = 'https://admin.lucknowlions.com';
 // const host = 'http://localhost:8005';
 
 

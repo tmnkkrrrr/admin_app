@@ -7,7 +7,7 @@ import host from "../../AppConfig";
 const NotificationBroadcast = () => {
   const [title, Title] = useState("");
   const [body, Body] = useState("");
-  const [url, setURL] = useState("");
+  const [url, Url] = useState("");
   const [isLoading, IsLoading] = useState(false);
   const [notifications, Notifications] = useState([]);
   const [imageFile, setImageFile] = useState(null);
@@ -21,6 +21,7 @@ const NotificationBroadcast = () => {
     const formData = new FormData();
     formData.append('title', title);
     formData.append('body', body);
+    formData.append('url', url);
     formData.append('image', imageFile);
 
     try {
@@ -36,6 +37,7 @@ const NotificationBroadcast = () => {
         alert('Notification broadcasted successfully!');
         Title('');
         Body('');
+        Url('')
         setImageFile(null);
         setImagePreview(null);
         fetchNotifications();
@@ -132,7 +134,7 @@ const NotificationBroadcast = () => {
          <input
           type="text"
           value={url}
-          onChange={(e) => setURL(e.target.value)}
+          onChange={(e) => Url(e.target.value)}
           className="TitleTextBox"
           placeholder="Please Enter URL..."
         />
@@ -149,6 +151,8 @@ const NotificationBroadcast = () => {
             <tr>
               <th>Title</th>
               <th>Body</th>
+              <th>img</th>
+              <th>Url</th>
               <th>Shooted At</th>
               <th>Action</th>
             </tr>
@@ -158,6 +162,8 @@ const NotificationBroadcast = () => {
               <tr key={notification.notificationId}>
                 <td>{notification.title}</td>
                 <td>{notification.body}</td>
+                <td><img style={{maxWidth:'5vw'}} src={`${host}/notification/${notification.notificationId}.png`}/></td>
+                <td>{notification.url}</td>
                 <td>{formatDate(notification.createdAt)}</td>
                 <td>
                   <button
