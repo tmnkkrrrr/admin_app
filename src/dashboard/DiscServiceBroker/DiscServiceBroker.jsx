@@ -144,7 +144,7 @@ const DiscServiceBroker = () => {
                   backgroundSize: "cover",
                   backgroundPosition: "center",
                 }}
-              ></div>
+              />
               <br />
               <strong>Title: </strong>
               {broker.title ?? ""}
