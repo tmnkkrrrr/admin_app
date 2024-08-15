@@ -3,6 +3,7 @@ import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 import "./ClientList.css";
 import host from "../../AppConfig";
+import formatDate from "../../functions/formateDate";
 
 const ClientList = () => {
   const [users, setUsers] = useState([]);
@@ -26,7 +27,7 @@ const ClientList = () => {
   }, []);
 
   const changeState = async (clientID, i, act) => {
-    if(act == 0) act = 1;
+    if (act == 0) act = 1;
     else act = 0;
     try {
       const response = await fetch(`${host}/api/v1/visitor/change_user_state`, {
@@ -76,6 +77,7 @@ const ClientList = () => {
           <thead>
             <tr>
               <th>Client ID</th>
+              <th>Joined On</th>
               <th>Name</th>
               <th>Email</th>
               <th>Mobile No</th>
@@ -90,18 +92,19 @@ const ClientList = () => {
             {users.map((user, i) => (
               <tr key={user.clientID}>
                 <td>{user.clientID}</td>
+                <td>{formatDate(user.createdAt)}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.mobileNo}</td>
                 <td>{user.address}</td>
                 <td>{user.city}</td>
                 <td>{user.state}</td>
-                <td> {user.isActive ?  "Active" :  "InActive"}</td>
+                <td> {user.isActive ? "Active" : "InActive"}</td>
                 <td>
                   <button
                     onClick={() => changeState(user.clientID, i, user.isActive)}
                   >
-                    {user.isActive ?   "InActive": "Activate" }
+                    {user.isActive ? "InActive" : "Activate"}
                   </button>
                 </td>
               </tr>
