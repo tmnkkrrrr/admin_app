@@ -3,7 +3,7 @@ import axios from "axios";
 import Sidebar from "../Sidebar/Sidebar";
 import "./ClientList.css";
 import host from "../../AppConfig";
-import formatDate from "../../functions/formateDate";
+import { formatDateTime } from "../../functions/formateDate";
 
 const ClientList = () => {
   const [users, setUsers] = useState([]);
@@ -76,8 +76,8 @@ const ClientList = () => {
         <table>
           <thead>
             <tr>
+              <th>Date</th>
               <th>Client ID</th>
-              <th>Joined On</th>
               <th>Name</th>
               <th>Email</th>
               <th>Mobile No</th>
@@ -91,8 +91,8 @@ const ClientList = () => {
           <tbody>
             {users.map((user, i) => (
               <tr key={user.clientID}>
+                <td>{formatDateTime(user.createdAt)}</td>
                 <td>{user.clientID}</td>
-                <td>{formatDate(user.createdAt)}</td>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.mobileNo}</td>

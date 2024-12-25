@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "../Sidebar/Sidebar";
 import "./Refer_Earn.css";
 import host from "../../AppConfig";
-import formatDate from "../../functions/formateDate";
+import { formatDate, formatDateTime } from "../../functions/formateDate";
 
 const Refer_Earn = () => {
   const [notifications, Notifications] = useState([]);
@@ -160,7 +160,7 @@ const Refer_Earn = () => {
           <tbody>
             {notifications.map((notification) => (
               <tr key={notification.referId}>
-                <td>{formatDate(notification.dat)}</td>
+                <td>{formatDateTime(notification.dat)}</td>
                 <td>{notification.fromName}</td>
                 <td>{notification.fromID}</td>
                 <td>{notification.toName}</td>
