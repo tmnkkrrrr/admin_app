@@ -16,7 +16,6 @@ const Login = (props) => {
     setEmailError("");
     setPasswordError("");
 
-    // Check if the user has entered both fields correctly
     if ("" === email) {
       setEmailError("Please enter your username");
       return;
@@ -35,42 +34,43 @@ const Login = (props) => {
     }
   };
   return (
-    <React.Fragment>
-      <div className={"mainContainer"}>
-        <div className={"titleContainer"}>
-          <div>WebMaster Login</div>
-        </div>
-        <br />
-        <div className={"inputContainer"}>
-          <input
-            value={email}
-            placeholder="Enter your username here"
-            onChange={(ev) => setEmail(ev.target.value)}
-            className={"inputBox"}
-          />
-          <label className="errorLabel">{emailError}</label>
-        </div>
-        <br />
-        <div className={"inputContainer"}>
-          <input
-            value={password}
-            placeholder="Enter your password here"
-            onChange={(ev) => setPassword(ev.target.value)}
-            className={"inputBox"}
-          />
-          <label className="errorLabel">{passwordError}</label>
-        </div>
-        <br />
-        <div className={"inputContainer"}>
-          <input
-            className={"inputButton"}
-            type="button"
+    <form className="login">
+      <div className="login__container">
+        <div className="login__card">
+          <h1 className="login__title">WebMaster Login</h1>
+          
+          <div className="login__field">
+            <input
+              type="text"
+              value={email}
+              placeholder="Enter your username here"
+              onChange={(ev) => setEmail(ev.target.value)}
+              className="login__input"
+            />
+            {emailError && <p className="login__error">{emailError}</p>}
+          </div>
+          
+          <div className="login__field">
+            <input
+              type="password"
+              value={password}
+              placeholder="Enter your password here"
+              onChange={(ev) => setPassword(ev.target.value)}
+              className="login__input"
+            />
+            {passwordError && <p className="login__error">{passwordError}</p>}
+          </div>
+          
+          <button 
+            type="submit"
             onClick={onButtonClick}
-            value={"Log in"}
-          />
+            className="login__button"
+          >
+            Log in
+          </button>
         </div>
       </div>
-    </React.Fragment>
+    </form>
   );
 };
 
